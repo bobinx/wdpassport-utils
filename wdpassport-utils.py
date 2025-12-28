@@ -397,6 +397,10 @@ def main(argv):
 		# If -d is used, filter devices.
 		if args.device and disk_device.device_node != args.device:
 			continue
+		# Ignore CD-ROM / virtual unlocker
+		props = disk_device.properties
+		if props.get("ID_CDROM") == "1":
+			continue
 
 		# Scan parent for device name.
 		device = disk_device
